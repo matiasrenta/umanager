@@ -1,0 +1,25 @@
+<% if current_user %>
+    Signed in as <%= current_user.name %>!
+    <%= link_to "Sign out", signout_path %>
+<% else %>
+    <%= link_to "Sign in with Twitter", "/auth/twitter" %>
+    <br/><br/>
+    <%= link_to "Sign in with Google", "/auth/google_oauth2" %>
+
+    <p>
+      <strong>No usas estos servicios?</strong>
+      <%#= link_to "Crea tu cuenta", new_identity_path %> o inicia sesión abajo.
+    </p>
+
+    <%= form_tag "/auth/identity/callback" do %>
+        <div class="field">
+          <%= label_tag :auth_key, "Email" %><br>
+          <%= text_field_tag :auth_key %>
+        </div>
+        <div class="field">
+          <%= label_tag :password %><br>
+          <%= password_field_tag :password %>
+        </div>
+        <div class="actions"><%= submit_tag "Login" %></div>
+    <% end %>
+<% end %>
